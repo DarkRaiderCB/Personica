@@ -1,0 +1,51 @@
+[project]
+name = "personica"
+version = "0.1.0"
+description = "Personica — a personal AI assistant with sliding-window context, rolling summaries, and ChromaDB-backed long-term memory"
+readme = "README.md"
+license = { file = "LICENSE.md" }
+requires-python = ">=3.12"
+dependencies = [
+    "chromadb==1.5.0",
+    "litellm==1.81.10",
+    "numpy==2.4.2",
+    "python-dotenv==1.2.1",
+    "sentence-transformers==5.2.2",
+    "tzdata==2025.3",
+]
+
+[project.scripts]
+personica = "personica.cli:main"
+personica-inspect = "personica.inspect_memory:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/personica"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# prompt templates are long strings by nature
+"src/personica/prompts.py" = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["personica"]

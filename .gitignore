@@ -1,0 +1,17 @@
+# Secrets — never commit API keys
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.egg-info/
+dist/
+
+# Runtime data (vector DB, session transcripts, traces, logs)
+personica_data/
+assistant_data/
+
+# macOs .DS_Store file
+**/.DS_Store
